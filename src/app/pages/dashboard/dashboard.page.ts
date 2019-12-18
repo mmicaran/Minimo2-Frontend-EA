@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { SubjectService } from '../../services/subject.service';
 import { Subject } from '../../models/subject';
 import { Student } from '../../models/student';
+import { Phone } from '../../models/phone';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { StudentService } from '../../services/student.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -13,38 +15,36 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class DashboardPage implements OnInit {
 
-  id: string;
-  private sub: any;
-  subject = new Subject();
-  student = new Student('', '', '', '','');
-  students: Student[];
+  subjectForm: FormGroup;
+  formBuilder: any;
+  phones: Phone[] = [];
+  studies: String[] = [];
+  student = new Student('','','','','');
+  studentsTelecos: Student[];
+  studentsTelematica: Student[];
+  studentsAeros: Student[];
+
+  singleSubject = new Subject();
+  add: boolean;
 
 
+  // subjects: Subject[];
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, public subjectService: SubjectService, public studentService: StudentService) { }
-
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.getSubjectDetails(this.id);
-    });
-
-    this.getStudents();
+  constructor(public subjectService: SubjectService, public studentService: StudentService, private router: Router) {
 
   }
 
-  getSubjectDetails(_id: string) {
+  ngOnInit() {
+    this.getSubjects();
+    this.getStudents();
+  }
 
-    this.subjectService.getSubjectDetail(_id)
+  getSubjects() {
+    this.subjectService.getSubjects()
       .subscribe(res => {
         console.log(res);
-        this.subject = res as Subject;
-        this.students = this.subject.students;
-        console.log(this.students);
-      },
-        err => {
-          console.log(err);
-        });
+        this.subjectService.subjects = res as Subject[];
+      });
   }
 
   getStudents() {
@@ -55,31 +55,137 @@ export class DashboardPage implements OnInit {
       });
   }
 
-  addStudentInSubject(studentId: string, subjectId: string, _id: string) {
-
-    const data = {
-      studentId: studentId,
-      subjectId: subjectId
-    };
-
-    console.log(data);
-
-    this.subjectService.addStudentInSubject(data).subscribe(res => {
-      this.getSubjectDetails(this.id);
-    });
+  getStudentsTelecos() {
+    this.studentService.getStudentsTelecos()
+      .subscribe(res => {
+        console.log(res);
+        this.studentsTelecos = res as Student[];
+      });
   }
 
-  deleteStudentInSubject(studentId: string, subjectId: string, _id: string) {
+  getStudentsTelematica() {
+    this.studentService.getStudentsTelematica()
+      .subscribe(res => {
+        console.log(res);
+        this.studentsTelematica = res as Student[];
+      });
+  }
 
-    const data = {
-      studentId: studentId,
-      subjectId: subjectId
-    };
+  getStudentsAeros() {
+    this.studentService.getStudentsAeros()
+      .subscribe(res => {
+        console.log(res);
+        this.studentsAeros = res as Student[];
+      });
+  }
 
-    console.log(data);
+  addSubject(form: NgForm) {
+    console.log(form.value);
+    this.subjectService.postSubject(form.value)
+      .subscribe(res => {
+        console.log(res);
+        this.resetForm(form);
+        this.getSubjects();
 
-    this.subjectService.deleteStudentInSubject(data).subscribe(res => {
-      this.getSubjectDetails(this.id);
+      });
+
+  }
+  addStudent(form: NgForm, opertation:string) {
+    console.log(form.value);
+    console.log(form.value.key);
+
+    // this.phones.set(form.value.key, form.value.value);
+
+    this.studies = [];
+    this.phones = [];
+
+
+    this.phones.push({
+      key: "Home",
+      value: form.value.studentFijo
     });
+
+    this.phones.push({
+      key: "Mobile",
+      value: form.value.studentMovil
+    });
+
+    if(form.value.aeros){
+      this.studies.push("aeros");
+    }
+
+    if(form.value.telematica){
+      this.studies.push("telematica");
+    }
+
+    if(form.value.telecos){
+      this.studies.push("telecos");
+    }
+
+    this.student.name = form.value.name;
+    this.student.address = form.value.address,
+    this.student.phones = this.phones;
+    this.student.studies = this.studies;
+
+
+    console.log(this.student);
+
+    this.studentService.postStudent(this.student)
+      .subscribe(res => {
+        console.log(res);
+        this.getStudents();
+        this.resetForm(form);
+
+      });
+
+  }
+
+  deleteSubject(_id: string) {
+    console.log(_id);
+    if (confirm('Are you sure?')) {
+      this.subjectService.deleteSubject(_id)
+        .subscribe(res => {
+          this.getSubjects();
+        });
+    }
+  }
+
+  deleteStudent(_id: string) {
+    console.log(_id);
+    if (confirm('Are you sure?')) {
+      this.studentService.deleteStudent(_id)
+        .subscribe(res => {
+          this.getStudents();
+        });
+    }
+  }
+
+
+
+  subjectDetail(_id: string) {
+
+    this.subjectService.getSubjectDetail(_id)
+      .subscribe(res => {
+        console.log(res);
+        this.singleSubject = res as Subject;
+        this.router.navigate(['/subject', this.singleSubject._id]);
+      },
+        err => {
+          console.log(err);
+        });
+  }
+
+  editStudent(_id: string) {
+
+   this.router.navigate(['/student', _id]);
+
+  }
+
+
+
+  resetForm(form?: NgForm) {
+    if (form) {
+      form.reset();
+    }
   }
 }

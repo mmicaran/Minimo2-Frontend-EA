@@ -16,6 +16,26 @@
               <ion-card-title>Asignaturas</ion-card-title>
             </ion-card-header>
             <ion-card-content>
+              <table class="table table-sm">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Operations</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let subject of subjectService.subjects">
+                    <td>{{subject.name}}</td>
+                    <td>
+                      <a (click)="subjectDetail(subject._id)">
+                        <i class="material-icons">info</i>
+                      </a>
+                      <a (click)="deleteSubject(subject._id)">
+                        <i class="material-icons">delete</i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -28,6 +48,27 @@
               <ion-card-title>Estudiantes</ion-card-title>
             </ion-card-header>
             <ion-card-content>
+              <table class="table table-sm">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Dirección</th>
+                  <th>Operations</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let student of studentService.students">
+                    <td>{{student.name}}</td>
+                    <td>{{student.address}}</td>
+                    <td>
+                      <a (click)="editStudent(student._id)">
+                        <i class="material-icons">edit</i>
+                      </a>
+                      <a (click)="deleteStudent(student._id)">
+                        <i class="material-icons">delete</i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -39,32 +80,29 @@
               <ion-card-title>Listados</ion-card-title>
             </ion-card-header>
             <ion-card-content>
+              <div>
+                <ion-button (click)="getStudentsTelecos()" expand="block" type="submit" class="ion-no-margin" data-toggle="modal"
+                  data-target="#telecosModal">
+                  Lista estudiantes Sistemas de telecomunicaciones
+                </ion-button>
+              </div>
+              <div class="col-xs-12">
+                <ion-button (click)="getStudentsTelematica()" expand="block" type="submit" class="ion-no-margin" data-toggle="modal"
+                  data-target="#telematicaModal">
+                  Lista estudiantes Telematica
+                </ion-button>
+              </div>
+              <div class="col-xs-12">
+                <ion-button (click)="getStudentsAeros()" expand="block" type="submit" class="ion-no-margin" data-toggle="modal"
+                  data-target="#aerosModal">
+                  Lista estudiantes Sistemas Aeroespaciales
+                </ion-button>
+              </div>
 
             </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>
-
-      <ion-row>
-        <ion-col size-md="6" offset-md="3">
-          <div class="ion-padding">
-            <ion-button expand="block" type="submit" class="ion-no-margin">
-              Editar</ion-button>
-          </div>
-
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size-md="6" offset-md="3">
-          <div class="ion-padding">
-            <ion-button expand="block" type="submit" class="ion-no-margin">
-              Cerrar sesión</ion-button>
-          </div>
-
-        </ion-col>
-      </ion-row>
-
 
     </form>
     <ion-card-content>
