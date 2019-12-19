@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-title>Añadir Estudiante</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <form #studentForm="ngForm" (ngSumbit)="addStudent(studentForm)">
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-card>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">Nombre del estudiante</ion-label>
+                <ion-input type="text" name="name" #name="ngModel" [(ngModel)]="studentName"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Dirección del estudiante</ion-label>
+                <ion-input type="text" name="address" #address="ngModel" [(ngModel)]="studentAddress"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Número de teléfono Fijo</ion-label>
+                <ion-input type="text" name="studentFijo" #address="ngModel" [(ngModel)]="studentFijo"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Móvil</ion-label>
+                <ion-input type="text" name="studentMovil" #address="ngModel" [(ngModel)]="studentMovil"></ion-input>
+              </ion-item>
+              <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Plan de carrera</label>
+                <div class="col-sm-10">
+                  <label><input id="aeros" #address="ngModel" [(ngModel)]="aeros" type="checkbox" class="form-control"
+                      name="aeros">Aeros</label>
+                  <label><input id="telematica" #address="ngModel" [(ngModel)]="telematica" type="checkbox"
+                      class="form-control" name="telematica">Telematica</label>
+                  <label><input id="telecos" #address="ngModel" [(ngModel)]="telecos" type="checkbox"
+                      class="form-control" name="telecos">Telecos</label>
+                </div>
+              </div>
+
+            </ion-card-content>
+          </ion-card>
+          <ion-button (click)="addStudent(studentForm)" expand="block" type="submit" class="ion-no-margin"
+            data-toggle="modal">Añadir</ion-button>
+
+        </ion-col>
+      </ion-row>
+    </form>
+
+  </ion-grid>
+
+</ion-content>

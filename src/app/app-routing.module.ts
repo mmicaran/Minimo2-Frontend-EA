@@ -16,6 +16,11 @@ const routes: Routes = [
     path: 'detalle-asignatura',
     loadChildren: () => import('./pages/detalle-asignatura/detalle-asignatura.module').then( m => m.DetalleAsignaturaPageModule)
   },
+  {
+    path: 'modal',
+    loadChildren: () => import('./pages/modal/modal.module').then( m => m.ModalPageModule)
+  },
+
 ];
 
 @NgModule({

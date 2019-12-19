@@ -8,6 +8,8 @@ import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } 
 import { HttpErrorResponse } from '@angular/common/http';
 import { StudentService } from '../../services/student.service';
 import { NgForm } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
+import { AddStudentModalPage } from '../add-student-modal/add-student-modal.page';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -19,7 +21,7 @@ export class DashboardPage implements OnInit {
   formBuilder: any;
   phones: Phone[] = [];
   studies: String[] = [];
-  student = new Student('','','','','');
+  student = new Student('', '', '', '', '');
   studentsTelecos: Student[];
   studentsTelematica: Student[];
   studentsAeros: Student[];
@@ -30,13 +32,20 @@ export class DashboardPage implements OnInit {
 
   // subjects: Subject[];
 
-  constructor(public subjectService: SubjectService, public studentService: StudentService, private router: Router) {
+  constructor(public subjectService: SubjectService, public studentService: StudentService, private router: Router, private modalCtrl: ModalController) {
 
   }
 
   ngOnInit() {
     this.getSubjects();
     this.getStudents();
+  }
+
+  async openModal() {
+   const myModal = await this.modalCtrl.create({
+     component: AddStudentModalPage
+   });
+   return await myModal.present();
   }
 
   getSubjects() {
@@ -90,7 +99,7 @@ export class DashboardPage implements OnInit {
       });
 
   }
-  addStudent(form: NgForm, opertation:string) {
+  addStudent(form: NgForm, opertation: string) {
     console.log(form.value);
     console.log(form.value.key);
 
@@ -110,21 +119,21 @@ export class DashboardPage implements OnInit {
       value: form.value.studentMovil
     });
 
-    if(form.value.aeros){
+    if (form.value.aeros) {
       this.studies.push("aeros");
     }
 
-    if(form.value.telematica){
+    if (form.value.telematica) {
       this.studies.push("telematica");
     }
 
-    if(form.value.telecos){
+    if (form.value.telecos) {
       this.studies.push("telecos");
     }
 
     this.student.name = form.value.name;
     this.student.address = form.value.address,
-    this.student.phones = this.phones;
+      this.student.phones = this.phones;
     this.student.studies = this.studies;
 
 
@@ -177,15 +186,17 @@ export class DashboardPage implements OnInit {
 
   editStudent(_id: string) {
 
-   this.router.navigate(['/student', _id]);
+    this.router.navigate(['/student', _id]);
 
   }
 
 
 
-  resetForm(form?: NgForm) {
-    if (form) {
-      form.reset();
-    }
+
+
+resetForm(form ?: NgForm) {
+  if (form) {
+    form.reset();
   }
+}
 }
