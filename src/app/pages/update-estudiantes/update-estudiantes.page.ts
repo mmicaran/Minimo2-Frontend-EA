@@ -19,7 +19,7 @@ export class UpdateEstudiantesPage implements OnInit {
   student: Student;
   subject: Subject;
   phones: Phone[] = [];
-  studies: String[] = [];
+  studies: String;
 
 
 

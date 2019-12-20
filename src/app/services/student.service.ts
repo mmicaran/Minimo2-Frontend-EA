@@ -8,7 +8,7 @@ import { Student } from '../models/student';
 })
 export class StudentService {
 
-  readonly URL_API = 'http://localhost:3000/students';
+  readonly URL_API = 'http://localhost:3000/student';
   selectedStudent: Student;
   students: Student[];
 

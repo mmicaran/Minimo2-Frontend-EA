@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { DetalleAsignaturaPage } from './pages/detalle-asignatura/detalle-asignatura.page';
 import { UpdateEstudiantesPage } from './pages/update-estudiantes/update-estudiantes.page';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UpdateEstudiantesPage } from './pages/update-estudiantes/update-estudia
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     StatusBar,

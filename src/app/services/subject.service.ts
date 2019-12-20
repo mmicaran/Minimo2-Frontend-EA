@@ -7,7 +7,7 @@ import { Subject } from '../models/subject';
 })
 export class SubjectService {
 
-  readonly URL_API = 'http://localhost:3000/subjects';
+  readonly URL_API = 'http://localhost:3000/subject';
   selectedSubject: Subject;
   subjects: Subject[];
 

@@ -20,6 +20,11 @@ const routes: Routes = [
     path: 'modal',
     loadChildren: () => import('./pages/modal/modal.module').then( m => m.ModalPageModule)
   },
+  {
+    path: 'add-subject-modal',
+    loadChildren: () => import('./pages/add-subject-modal/add-subject-modal.module').then( m => m.AddSubjectModalPageModule)
+  },
+
 
 ];
 

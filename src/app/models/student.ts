@@ -13,7 +13,7 @@ export class Student {
   name: string;
   address: string;
   phones: Phone[];
-  studies: String[];
+  studies: String;
 
 
 }

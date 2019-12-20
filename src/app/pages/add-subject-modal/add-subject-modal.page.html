@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-title>Añadir Asignatura</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid fixed>
+    <form #subjectForm="ngForm" (ngSumbit)="addSubject(subjectForm)">
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-card>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">Nombre de la asignatura</ion-label>
+                <ion-input type="text" name="name" #name="ngModel" [(ngModel)]="studentName"></ion-input>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+          <ion-button (click)="addSubject(subjectForm)" expand="block" type="submit" class="ion-no-margin"
+            data-toggle="modal">Añadir</ion-button>
+
+        </ion-col>
+      </ion-row>
+    </form>
+
+  </ion-grid>
+
+</ion-content>

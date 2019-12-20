@@ -1,12 +1,9 @@
 import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SubjectService } from '../../services/subject.service';
 import { Subject } from '../../models/subject';
 import { Student } from '../../models/student';
 import { Phone } from '../../models/phone';
-import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import { FormGroup } from '@angular/forms';
 import { StudentService } from '../../services/student.service';
 import { NgForm } from '@angular/forms';
 
@@ -17,10 +14,10 @@ import { NgForm } from '@angular/forms';
 })
 export class AddStudentModalPage implements OnInit {
 
-  subjectForm: FormGroup;
+  studentForm: FormGroup;
   formBuilder: any;
   phones: Phone[] = [];
-  studies: String[] = [];
+  studies: String;
   student = new Student('', '', '', '', '');
   studentsTelecos: Student[];
   studentsTelematica: Student[];
@@ -38,41 +35,32 @@ export class AddStudentModalPage implements OnInit {
     await this.modalCntrl.dismiss();
   }
 
-  addStudent(form: NgForm, opertation: string) {
+  addStudent(form: NgForm) {
     console.log(form.value);
-    console.log(form.value.key);
-
-    // this.phones.set(form.value.key, form.value.value);
-
-    this.studies = [];
+    console.log(form.value.key); 
     this.phones = [];
-
 
     this.phones.push({
       key: "Home",
       value: form.value.studentFijo
     });
-
     this.phones.push({
       key: "Mobile",
       value: form.value.studentMovil
     });
-
     if (form.value.aeros) {
-      this.studies.push("aeros");
+      this.studies =  "aeros";
     }
-
     if (form.value.telematica) {
-      this.studies.push("telematica");
+      this.studies = "telematica";
     }
-
     if (form.value.telecos) {
-      this.studies.push("telecos");
+      this.studies = "telecos";
     }
 
     this.student.name = form.value.name;
     this.student.address = form.value.address,
-      this.student.phones = this.phones;
+    this.student.phones = this.phones;
     this.student.studies = this.studies;
 
 

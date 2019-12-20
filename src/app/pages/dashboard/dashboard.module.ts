@@ -8,6 +8,7 @@ import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
 import { DashboardPage } from './dashboard.page';
 import { AddStudentModalPage } from '../add-student-modal/add-student-modal.page';
+import { AddSubjectModalPage } from '../add-subject-modal/add-subject-modal.page';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { AddStudentModalPage } from '../add-student-modal/add-student-modal.page
     IonicModule,
     DashboardPageRoutingModule
   ],
-  declarations: [DashboardPage, AddStudentModalPage],
-  entryComponents: [AddStudentModalPage]
+  declarations: [DashboardPage, AddStudentModalPage, AddSubjectModalPage],
+  entryComponents: [AddStudentModalPage, AddSubjectModalPage]
 })
 export class DashboardPageModule {}

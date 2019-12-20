@@ -11,6 +11,7 @@
     <form>
       <ion-row>
         <ion-col size-md="6" offset-md="3">
+          <!-- Asignaturas -->
           <ion-card>
             <ion-card-header>
               <ion-card-title>Asignaturas</ion-card-title>
@@ -35,6 +36,10 @@
                   </tr>
                 </tbody>
               </table>
+              <div>
+                <ion-button (click)="openModal2()" expand="block" type="submit" class="ion-no-margin" data-toggle="modal">Añadir Asignatura</ion-button>
+              </div>
+              
 
             </ion-card-content>
           </ion-card>
@@ -43,6 +48,7 @@
 
       <ion-row>
         <ion-col size-md="6" offset-md="3">
+          <!-- Estudiantes -->
           <ion-card>
             <ion-card-header>
               <ion-card-title>Estudiantes</ion-card-title>
@@ -59,9 +65,6 @@
                     <td>{{student.name}}</td>
                     <td>{{student.address}}</td>
                     <td>
-                      <a (click)="editStudent(student._id)">
-                        <i class="material-icons">edit</i>
-                      </a>
                       <a (click)="deleteStudent(student._id)">
                         <i class="material-icons">delete</i>
                       </a>
@@ -79,6 +82,7 @@
       </ion-row>
       <ion-row>
         <ion-col size-md="6" offset-md="3">
+          <!-- Listados -->
           <ion-card>
             <ion-card-header>
               <ion-card-title>Listados</ion-card-title>

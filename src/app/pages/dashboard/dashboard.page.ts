@@ -10,6 +10,7 @@ import { StudentService } from '../../services/student.service';
 import { NgForm } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { AddStudentModalPage } from '../add-student-modal/add-student-modal.page';
+import { AddSubjectModalPage } from '../add-subject-modal/add-subject-modal.page';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -20,7 +21,7 @@ export class DashboardPage implements OnInit {
   subjectForm: FormGroup;
   formBuilder: any;
   phones: Phone[] = [];
-  studies: String[] = [];
+  studies: String;
   student = new Student('', '', '', '', '');
   studentsTelecos: Student[];
   studentsTelematica: Student[];
@@ -47,6 +48,13 @@ export class DashboardPage implements OnInit {
    });
    return await myModal.present();
   }
+
+  async openModal2() {
+    const myModal = await this.modalCtrl.create({
+      component: AddSubjectModalPage
+    });
+    return await myModal.present();
+   }
 
   getSubjects() {
     this.subjectService.getSubjects()
@@ -105,7 +113,6 @@ export class DashboardPage implements OnInit {
 
     // this.phones.set(form.value.key, form.value.value);
 
-    this.studies = [];
     this.phones = [];
 
 
@@ -120,20 +127,20 @@ export class DashboardPage implements OnInit {
     });
 
     if (form.value.aeros) {
-      this.studies.push("aeros");
+      this.studies = "aeros";
     }
 
     if (form.value.telematica) {
-      this.studies.push("telematica");
+      this.studies = "telematica";
     }
 
     if (form.value.telecos) {
-      this.studies.push("telecos");
+      this.studies = "telecos";
     }
 
     this.student.name = form.value.name;
     this.student.address = form.value.address,
-      this.student.phones = this.phones;
+    this.student.phones = this.phones;
     this.student.studies = this.studies;
 
 
@@ -194,9 +201,9 @@ export class DashboardPage implements OnInit {
 
 
 
-resetForm(form ?: NgForm) {
-  if (form) {
-    form.reset();
+  resetForm(form ?: NgForm) {
+    if (form) {
+      form.reset();
+    }
   }
-}
 }
